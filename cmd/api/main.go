@@ -3,10 +3,14 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
+
+	"github.com/amarnathdbg101-coder/olx/internal/config"
 )
 func main() {
 
+    config.MustLoad()
      mux := http.NewServeMux()
     
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +22,7 @@ func main() {
 	})
     
      srvr := http.Server{
-		Addr: ":8080",
+		Addr: ":"+os.Getenv("PORT"),
 		Handler: mux,
 		ReadTimeout: time.Second*10,
 		WriteTimeout: time.Second*30,
