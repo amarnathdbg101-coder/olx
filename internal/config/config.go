@@ -13,9 +13,7 @@ type Config struct {
 }
 
 func MustLoad() {
-	if err := godotenv.Load(); err != nil {
-		log.Fatalf("godotenv:%v",err)
-	}
+	_= godotenv.Load()
 	port := os.Getenv("PORT")
 	if port == ""{
 		panic("port is required")
