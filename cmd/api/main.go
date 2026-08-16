@@ -7,11 +7,17 @@ import (
 	"time"
 
 	"github.com/amarnathdbg101-coder/olx/internal/config"
+	"github.com/amarnathdbg101-coder/olx/internal/database"
 	"github.com/amarnathdbg101-coder/olx/internal/handler"
 )
 func main() {
 
-    config.MustLoad()
+    cfg := config.MustLoad()
+	_, err := database.ConnectDB(cfg.DatabaseUrl)
+	if err != nil {
+		log.Fatalf("database error :%v",err)
+	}
+
      mux := http.NewServeMux()
 	 mux.HandleFunc("GET /healthz",handler.Healthz)
     
